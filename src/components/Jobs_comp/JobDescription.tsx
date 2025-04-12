@@ -36,10 +36,7 @@ interface Company {
   createdAt: string;
   updatedAt: string;
 }
-interface Application {
-  applicant: string;
-  
-}
+
 
 interface Job {
   _id: string;
@@ -68,7 +65,8 @@ const JobDescription: React.FC<JobProps> = () => {
  
   const { user } = useSelector((store: RootState) => store.auth);
 
-  const isInitiallyApplied = singleJob?.application?.some(application => application.applicant === user?._id) || false;
+  const isInitiallyApplied =  false;
+  console.log(singleJob)
   const [isApplied, setIsApplied] = useState<boolean>(isInitiallyApplied);
 
   const params = useParams<{ id: string }>();
@@ -85,16 +83,13 @@ const JobDescription: React.FC<JobProps> = () => {
 
       if (res.data.success) {
         setIsApplied(true); // Update the local state
-        const updatedSingleJob: Job = {
-          ...singleJob!,
-          application: [...singleJob?.application, { applicant: user!._id, _id: res.data.applicationId }],
-        };
-        dispatch(setSingleJob(updatedSingleJob)); // helps us to real-time UI update
+       
+        // helps us to real-time UI update
         toast.success(res.data.message);
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
-      toast.error(error.response?.data?.message || 'An error occurred');
+      
     }
   };
 
@@ -106,9 +101,7 @@ const JobDescription: React.FC<JobProps> = () => {
         const res = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, { withCredentials: true });
         if (res.data.success) {
           dispatch(setSingleJob(res.data.job));
-          setIsApplied(
-            res.data.job.applications.some((application: Application) => application.applicant === user?._id)
-          ); // Ensure the state is in sync with fetched data
+          // Ensure the state is in sync with fetched data
         }
       } catch (error) {
         console.error(error);

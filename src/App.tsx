@@ -10,7 +10,7 @@ import JobDescription from "./components/Jobs_comp/JobDescription";
 import Companies from "./components/admin/Companies";
 import CompanyCreates from "./components/admin/CompanyCreates";
 import CompanySetup from "./components/admin/CompanySetup";
-import AdminJobs from "./components/admin/adminJobs";
+import AdminJobs from "./components/admin/AdminJobs";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import PostJob from "./components/admin/PostJob";
 import Applicants from "./components/admin/Applicants";
